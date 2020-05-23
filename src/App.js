@@ -21,17 +21,21 @@ function App() {
 
 
   const fetchData =async()=>{
-    setQuery(query);
+   
    const data = await fetch( `https://api.covid19api.com/summary `);
     const response = await data.json();
     console.log(response)
     setStats(response.Countries)
-    
   }
-  const countryResults = stats.filter(country =>{
-    return country.Country === query;
-  })
-  
+    const countryResults = stats.filter(country =>{
+      return country.Country === query;
+      })
+     
+  const onSubmit = e =>{
+    e.preventDefault()
+    fetchData();
+    
+    }
    return (
   
     <Form>
@@ -43,7 +47,7 @@ function App() {
         <InputGroup className="shadow">
         <Input  type="text" value={query} placeholder="Enter Country" onChange={e=>setQuery(e.target.value)}/>
         </InputGroup>
-    <Button className="shadow" onClick={e=>fetchData()}>Search</Button>
+    <Button className="shadow" onClick={onSubmit}>Search</Button>
       </Col>
     </Row>
       {countryResults.map(result =>(
