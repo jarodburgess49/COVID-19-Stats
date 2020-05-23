@@ -3,6 +3,9 @@ API used : https://api.covid19api.com/summary
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+![covid-19 tss](https://user-images.githubusercontent.com/57355675/82737160-79842480-9d4c-11ea-88a0-5f5703e6aeb8.png)
+
+
 ## Available Scripts
 
 In the project directory, you can run:
