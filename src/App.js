@@ -9,8 +9,12 @@ import Footer from './components/footer';
 
 function App() {
 
-  const [stats, setStats] = useState([])
+  const [stats, setStats] = useState({
+  results:[],
+  loading:true
+  })
   const [query, setQuery] = useState("")
+  const {results,loading} = stats
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -25,9 +29,9 @@ function App() {
    const data = await fetch( `https://api.covid19api.com/summary `);
     const response = await data.json();
     console.log(response)
-    setStats(response.Countries)
+    setStats({...stats,results:response.Countries,loading:false})
   }
-    const countryResults = stats.filter(country =>{
+    const countryResults = results.filter(country =>{
       return country.Country === query;
       })
      
@@ -36,6 +40,16 @@ function App() {
     fetchData();
     
     }
+  const request = () =>{
+  if(loading){
+  return(
+  <div>
+  <h3>Monitoring the Cases...</h3>
+  </div>
+  )
+  }
+
+  }
    return (
   
     <Form>
@@ -50,6 +64,7 @@ function App() {
     <Button className="shadow" onClick={onSubmit}>Search</Button>
       </Col>
     </Row>
+      {request()}
       {countryResults.map(result =>(
       <Result country={result.Country} confirmed={result.TotalConfirmed} recovered={result.TotalRecovered} active={result.NewConfirmed} deaths={result.TotalDeaths}/>
     ))}
